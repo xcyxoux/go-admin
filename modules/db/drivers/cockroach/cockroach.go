@@ -1,3 +1,3 @@
 package cockroach
 
-import _ "github.com/lib/pq" // Import the postgresql driver, cockroach relies on the same pq
+import _ "github.com/cockroachdb/cockroach-go/crdb" // Import cockroach
