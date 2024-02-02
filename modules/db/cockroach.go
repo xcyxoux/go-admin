@@ -96,7 +96,8 @@ func (db *Cockroach) InitDB(cfgList map[string]config.Database) Connection {
 
 			fmt.Println("check db config", cfg.GetDSN())
 
-			sqlDB, err := sql.Open("cockroach", cfg.GetDSN())
+			// works with postgres driver
+			sqlDB, err := sql.Open("postgres", cfg.GetDSN())
 			if err != nil {
 				if sqlDB != nil {
 					_ = sqlDB.Close()
