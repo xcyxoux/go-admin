@@ -116,11 +116,14 @@ func buildProject(cfgFile string) {
 	}
 	if p.Driver == "" {
 		p.Driver = singleSelect(getWord("choose a driver"),
-			[]string{"mysql", "postgresql", "sqlite", "mssql"}, "mysql")
+			[]string{"mysql", "postgresql", "sqlite", "mssql", "cockroach"}, "mysql")
 	}
 	p.DriverModule = p.Driver
 	if p.Driver == db.DriverPostgresql {
 		p.DriverModule = "postgres"
+	}
+	if p.Driver == db.DriverCockroach {
+		p.DriverModule = "cockroach"
 	}
 
 	rootPath, err := os.Getwd()

@@ -115,7 +115,7 @@ func Cleaner(config config.DatabaseList) {
 		for _, t := range autoIncrementTable {
 			checkErr(conn.Exec(`DBCC CHECKIDENT (` + t + `, RESEED, 0)`))
 		}
-	case db.DriverPostgresql:
+	case db.DriverPostgresql, db.DriverCockroach:
 		for _, t := range autoIncrementTable {
 			checkErr(conn.Exec(`ALTER SEQUENCE ` + t + `_myid_seq RESTART WITH  1`))
 		}

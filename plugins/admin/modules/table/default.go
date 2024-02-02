@@ -1139,7 +1139,7 @@ func (tb *DefaultTable) getColumns(table string) (Columns, bool) {
 
 	columns := make(Columns, len(columnsModel))
 	switch tb.connectionDriver {
-	case db.DriverPostgresql:
+	case db.DriverPostgresql, db.DriverCockroach:
 		auto := false
 		for key, model := range columnsModel {
 			columns[key] = model["column_name"].(string)

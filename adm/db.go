@@ -67,7 +67,7 @@ func askForDBConfig(info *dbInfo) config.DatabaseList {
 
 	if info.DriverName == "" {
 		info.DriverName = singleSelect(getWord("choose a driver"),
-			[]string{db.DriverMysql, db.DriverPostgresql, db.DriverSqlite, db.DriverMssql}, db.DriverMysql)
+			[]string{db.DriverMysql, db.DriverPostgresql, db.DriverSqlite, db.DriverMssql, db.DriverCockroach}, db.DriverMysql)
 	}
 
 	if info.DriverName != db.DriverSqlite {
@@ -78,6 +78,11 @@ func askForDBConfig(info *dbInfo) config.DatabaseList {
 		if info.DriverName == db.DriverPostgresql {
 			defaultPort = "5432"
 			defaultUser = "postgres"
+		}
+
+		if info.DriverName == db.DriverCockroach {
+			defaultPort = "26257"
+			defaultUser = "cockroach"
 		}
 
 		if info.DriverName == db.DriverMssql {
@@ -101,7 +106,8 @@ func askForDBConfig(info *dbInfo) config.DatabaseList {
 			info.Password = promptPassword()
 		}
 
-		if info.Schema == "" && info.DriverName == db.DriverPostgresql {
+		// default?
+		if info.Schema == "" && (info.DriverName == db.DriverPostgresql || info.DriverName == db.DriverCockroach) {
 			info.Schema = promptWithDefault("sql schema", "public")
 		}
 

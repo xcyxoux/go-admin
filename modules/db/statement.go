@@ -239,7 +239,7 @@ func (sql *SQL) Count() (int64, error) {
 		return 0, err
 	}
 
-	if driver == DriverPostgresql {
+	if driver == DriverPostgresql || driver == DriverCockroach {
 		return res["count"].(int64), nil
 	} else if driver == DriverMssql {
 		return res[""].(int64), nil
@@ -465,7 +465,7 @@ func (sql *SQL) ShowTables() ([]string, error) {
 	}
 
 	key := "Tables_in_" + sql.TableName
-	if sql.diver.Name() == DriverPostgresql || sql.diver.Name() == DriverSqlite {
+	if sql.diver.Name() == DriverPostgresql || sql.diver.Name() == DriverSqlite || sql.diver.Name() == DriverCockroach {
 		key = "tablename"
 	} else if sql.diver.Name() == DriverMssql {
 		key = "TABLE_NAME"
@@ -554,7 +554,7 @@ func (sql *SQL) Insert(values dialect.H) (int64, error) {
 
 	sql.dialect.Insert(&sql.SQLComponent)
 
-	if sql.diver.Name() == DriverPostgresql && (strings.Contains(postgresInsertCheckTableName, sql.TableName)) {
+	if (sql.diver.Name() == DriverPostgresql || sql.diver.Name() == DriverCockroach) && (strings.Contains(postgresInsertCheckTableName, sql.TableName)) {
 
 		resMap, err := sql.diver.QueryWith(sql.tx, sql.conn, sql.Statement+" RETURNING id", sql.Args...)
 

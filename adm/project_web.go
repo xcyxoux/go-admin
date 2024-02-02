@@ -131,7 +131,7 @@ func buildProjectWeb(port string) {
 					_, _ = w.Write([]byte(`{"code": 400, "msg": "` + local(lang)("web.wrong parameter") + `"}`))
 					return
 				}
-			} else if r.PostFormValue("db_type") == "postgresql" {
+			} else if strings.Contains("postgresql|cockroach", r.PostFormValue("db_type")) {
 				if field, ok := checkEmpty([]string{"db_schema", "db_port", "db_host", "db_user", "db_passwd", "db_name"}, r); !ok {
 					w.WriteHeader(http.StatusOK)
 					w.Header().Add("Content-Type", "application/json")
@@ -169,6 +169,10 @@ func buildProjectWeb(port string) {
 
 			if p.Driver == db.DriverPostgresql {
 				p.DriverModule = "postgres"
+			}
+
+			if p.Driver == db.DriverCockroach {
+				p.DriverModule = "cockroach"
 			}
 
 			var (

@@ -62,7 +62,7 @@ func (d Database) GetDSN() string {
 		return d.User + ":" + d.Pwd + "@tcp(" + d.Host + ":" + d.Port + ")/" +
 			d.Name + d.ParamStr()
 	}
-	if d.Driver == DriverPostgresql {
+	if d.Driver == DriverPostgresql || d.Driver == DriverCockroach {
 		return fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s"+d.ParamStr(),
 			d.Host, d.Port, d.User, d.Pwd, d.Name)
 	}
@@ -108,7 +108,7 @@ func (d Database) ParamStr() string {
 		}
 		p = p[:len(p)-1]
 	}
-	if d.Driver == DriverPostgresql {
+	if d.Driver == DriverPostgresql || d.Driver == DriverCockroach {
 		if _, ok := d.Params["sslmode"]; !ok {
 			d.Params["sslmode"] = "disable"
 		}
@@ -197,6 +197,8 @@ const (
 	DriverMssql = "mssql"
 	// DriverOceanBase is a const value of mysql driver.
 	DriverOceanBase = "oceanbase"
+	// DriverCockroach is a const value of cockroach driver.
+	DriverCockroach = "cockroach"
 )
 
 // Store is the file store config. Path is the local store path.

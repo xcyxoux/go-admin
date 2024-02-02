@@ -24,6 +24,8 @@ const (
 	DriverMssql = "mssql"
 	// DriverOceanBase is a const value of oceanbase driver.
 	DriverOceanBase = "oceanbase"
+	// DriverCockroach is a const value of cockroach driver.
+	DriverCockroach = "cockroach"
 )
 
 // Connection is a connection handler of database.
@@ -86,6 +88,8 @@ func GetConnectionByDriver(driver string) Connection {
 		return GetSqliteDB()
 	case "postgresql":
 		return GetPostgresqlDB()
+	case "cockroach":
+		return GetCockroachDB()
 	case "oceanbase":
 		return GetOceanBaseDB()
 	default:
@@ -110,6 +114,8 @@ func GetConnection(srvs service.List) Connection {
 func GetAggregationExpression(driver, field, headField, delimiter string) string {
 	switch driver {
 	case "postgresql":
+		return fmt.Sprintf("string_agg(%s::character varying, '%s') as %s", field, delimiter, headField)
+	case "cockroach":
 		return fmt.Sprintf("string_agg(%s::character varying, '%s') as %s", field, delimiter, headField)
 	case "mysql":
 		return fmt.Sprintf("group_concat(%s separator '%s') as %s", field, delimiter, headField)

@@ -57,6 +57,10 @@ func GetDialectByDriver(driver string) Dialect {
 		return postgresql{
 			commonDialect: commonDialect{delimiter: `"`, delimiter2: `"`},
 		}
+	case "cockroach":
+		return cockroach{
+			commonDialect: commonDialect{delimiter: `"`, delimiter2: `"`},
+		}
 	case "sqlite":
 		return sqlite{
 			commonDialect: commonDialect{delimiter: "`", delimiter2: "`"},

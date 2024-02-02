@@ -255,6 +255,11 @@ func (eng *Engine) PostgresqlConnection() db.Connection {
 	return db.GetConnectionFromService(eng.Services.Get(db.DriverPostgresql))
 }
 
+// CockroachConnection return the cockroach db connection of given driver.
+func (eng *Engine) CockroachConnection() db.Connection {
+	return db.GetConnectionFromService(eng.Services.Get(db.DriverCockroach))
+}
+
 // SqliteConnection return the sqlite db connection of given driver.
 func (eng *Engine) SqliteConnection() db.Connection {
 	return db.GetConnectionFromService(eng.Services.Get(db.DriverSqlite))

@@ -11,6 +11,8 @@ import (
 	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/mysql"
 	// add postgresql driver
 	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/postgres"
+	// add cockroach driver
+	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/cockroach"
 	// add sqlite driver
 	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/sqlite"
 	// add mssql driver
@@ -27,7 +29,6 @@ import (
 	"github.com/GoAdminGroup/go-admin/template"
 	"github.com/GoAdminGroup/go-admin/template/chartjs"
 	"github.com/GoAdminGroup/go-admin/tests/tables"
-	"github.com/labstack/echo/v4"
 )
 
 func internalHandler() http.Handler {

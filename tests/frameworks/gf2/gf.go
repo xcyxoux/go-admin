@@ -14,6 +14,8 @@ import (
 
 	// add postgresql driver
 	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/postgres"
+	// add cockroach driver
+	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/cockroach"
 	// add sqlite driver
 	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/sqlite"
 	// add mssql driver
