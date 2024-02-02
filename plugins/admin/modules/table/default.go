@@ -588,7 +588,7 @@ func (tb *DefaultTable) getDataFromDatabase(params parameter.Parameters) (PanelI
 
 		logger.LogSQL(countCmd, nil)
 
-		if tb.connectionDriver == "postgresql" {
+		if strings.Contains("postgresql|cockroach", tb.connectionDriver) {
 			if tb.connectionDriverMode == "h2" {
 				size = int(total[0]["count(*)"].(int64))
 			} else if config.GetDatabases().GetDefault().DriverMode == "h2" {

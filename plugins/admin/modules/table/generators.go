@@ -1415,7 +1415,7 @@ func (s *SystemTable) GetGenerateForm(ctx *context.Context) (generateTool Table)
 					typeField  = "Type"
 				)
 
-				if driver == "postgresql" {
+				if driver == "postgresql" || driver == "cockroach" {
 					fieldField = "column_name"
 					typeField = "udt_name"
 				}

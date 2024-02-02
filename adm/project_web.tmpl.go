@@ -628,7 +628,7 @@ var projectWebTmpl = `
 
             $('#sqlite_settings').hide();
             $('#sql_settings').show();
-            $('#pgsql_settings').toggle(dbType === "postgresql");
+            $('#pgsql_settings').toggle(dbType === "postgresql" || dbType === "cockroach");
 
             $.each(dbDefaults, function (key, value) {
                 if ($('#db_type').val() === key) {

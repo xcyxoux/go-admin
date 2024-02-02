@@ -445,7 +445,7 @@ func getFieldsFromConn(conn db.Connection, table, driver string) Fields {
 
 	fieldField := "Field"
 	typeField := "Type"
-	if driver == "postgresql" {
+	if driver == "postgresql" || driver == "cockroach" {
 		fieldField = "column_name"
 		typeField = "udt_name"
 	}
